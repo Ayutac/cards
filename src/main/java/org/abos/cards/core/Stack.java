@@ -1,8 +1,8 @@
 package org.abos.cards.core;
 
-import java.util.Collection;
+import java.util.List;
 
-public interface Stack<T extends Card> extends Named, Collection<T> {
+public interface Stack<T extends Card> extends Named, List<T> {
 
     void shuffle();
 

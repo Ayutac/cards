@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class SkatBoard implements Board {
+public class SkatBoard implements Board<SimpleCard> {
 
     public static final String DECK_STACK = "deck";
 
@@ -44,7 +44,12 @@ public class SkatBoard implements Board {
     }
 
     @Override
-    public Stack getByName(String name) {
+    public boolean hasStack(String name) {
+        return stacks.containsKey(name);
+    }
+
+    @Override
+    public Stack<SimpleCard> getStackByName(String name) {
         return stacks.get(name);
     }
 }

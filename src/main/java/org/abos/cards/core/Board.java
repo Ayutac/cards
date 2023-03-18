@@ -1,7 +1,9 @@
 package org.abos.cards.core;
 
-public interface Board {
+public interface Board<T extends Card> {
 
-    Stack getByName(String name);
+    boolean hasStack(String name);
+
+    Stack<T> getStackByName(String name);
 
 }
