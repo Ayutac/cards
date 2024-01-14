@@ -1,5 +1,7 @@
 package org.abos.cards.core;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
@@ -10,9 +12,12 @@ public abstract class SimpleSubGame<T extends Card> implements SubGame<T> {
 
     protected final List<Board<T>> historicBoards = new LinkedList<>();
 
-    protected SimpleSubGame(final Board<T> board) {
-        this.board = Objects.requireNonNull(board);
+    protected final List<Phase<T>> phases = new ArrayList<>();
+
+    protected SimpleSubGame(final Board<T> board, final List<Phase<T>> phases) {
+        this.board = Objects.requireNonNull(board).clone();
         historizeBoard();
+        this.phases.addAll(phases);
     }
 
     @Override

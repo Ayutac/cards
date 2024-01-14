@@ -1,6 +1,8 @@
 package org.abos.cards.core;
 
-public interface SubGame<T extends Card> {
+import java.util.List;
+
+public interface SubGame<T extends Card> extends Runnable {
 
     Board<T> getBoard();
 
@@ -15,4 +17,8 @@ public interface SubGame<T extends Card> {
     boolean isInitialized();
 
     void initialize();
+
+    int getPhasesSize();
+
+    Phase<T> getPhase(final int index) throws IndexOutOfBoundsException;
 }

@@ -3,7 +3,10 @@ package org.abos.cards.examples.classic.skat;
 import org.abos.cards.core.Rule;
 import org.abos.cards.core.SimpleCard;
 import org.abos.cards.core.SubGame;
-import org.abos.cards.core.actions.*;
+import org.abos.cards.core.actions.Action;
+import org.abos.cards.core.actions.MoveAction;
+import org.abos.cards.core.actions.MoveType;
+import org.abos.cards.core.actions.ShuffleAction;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -21,6 +24,11 @@ public class SkatDealingRule implements Rule<SimpleCard> {
     @Override
     public SubGame<SimpleCard> getSubGame() {
         return subGame;
+    }
+
+    @Override
+    public boolean resetIfActionFailed() {
+        return false;
     }
 
     @Override
