@@ -7,7 +7,7 @@ public class SimpleStack<T extends Card> extends LinkedList<T> implements Stack<
 
     private final String name;
 
-    public SimpleStack(String name) {
+    public SimpleStack(final String name) {
         this.name = Objects.requireNonNull(name);
     }
 

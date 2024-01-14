@@ -6,5 +6,5 @@ public interface CardType extends Named {
 
     String NAME_PROPERTY = "Name";
 
-    Object getProperty(String property) throws IllegalArgumentException;
+    Object getProperty(final String property) throws IllegalArgumentException;
 }

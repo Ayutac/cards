@@ -20,13 +20,13 @@ public final class FrenchType implements CardType {
     private final FrenchSuit suit;
     private final FrenchRank rank;
 
-    private FrenchType(FrenchSuit suit, FrenchRank rank) {
+    private FrenchType(final FrenchSuit suit, final FrenchRank rank) {
         this.suit = Objects.requireNonNull(suit);
         this.rank = Objects.requireNonNull(rank);
         this.name = suit.getName() + " " + rank.getName();
     }
 
-    public static FrenchType of(FrenchSuit suit, FrenchRank rank) {
+    public static FrenchType of(final FrenchSuit suit, final FrenchRank rank) {
         return cards[suit.ordinal()][rank.ordinal()];
     }
 
@@ -36,7 +36,7 @@ public final class FrenchType implements CardType {
     }
 
     @Override
-    public Object getProperty(String property) {
+    public Object getProperty(final String property) throws IllegalArgumentException {
         return switch (property) {
             case CardType.NAME_PROPERTY -> getName();
             case FrenchSuit.SUIT_PROPERTY -> suit;

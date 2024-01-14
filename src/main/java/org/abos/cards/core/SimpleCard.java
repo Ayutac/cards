@@ -6,7 +6,7 @@ public class SimpleCard implements Card {
 
     private final CardType type;
 
-    public SimpleCard(CardType type) {
+    public SimpleCard(final CardType type) {
         this.type = Objects.requireNonNull(type);
     }
 

@@ -11,7 +11,7 @@ public interface Card extends Named {
         return getType().getName();
     }
 
-    default Object getProperty(String property) {
+    default Object getProperty(final String property) {
         return getType().getProperty(property);
     }
 }

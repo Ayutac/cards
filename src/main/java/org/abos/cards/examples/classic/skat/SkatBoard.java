@@ -31,7 +31,7 @@ public class SkatBoard implements Board<SimpleCard> {
 
     private final Map<String, Stack<SimpleCard>> stacks = new HashMap<>();
 
-    public SkatBoard(SkatDeck deck) {
+    public SkatBoard(final SkatDeck deck) {
         stacks.put(DECK_STACK, Objects.requireNonNull(deck));
         stacks.put(SKAT_STACK, new SimpleStack<>(SKAT_STACK));
         stacks.put(PILE_STACK, new SimpleStack<>(PILE_STACK));
@@ -41,13 +41,33 @@ public class SkatBoard implements Board<SimpleCard> {
         }
     }
 
+    protected SkatBoard() {
+        this(new SkatDeck());
+    }
+
     @Override
-    public boolean hasStack(String name) {
+    public boolean hasStack(final String name) {
         return stacks.containsKey(name);
     }
 
     @Override
-    public Stack<SimpleCard> getStackByName(String name) {
+    public Stack<SimpleCard> getStackByName(final String name) throws IllegalArgumentException {
+        if (!hasStack(name)) {
+            throw new IllegalArgumentException("Unkown stack!");
+        }
         return stacks.get(name);
+    }
+
+    @Override
+    public SkatBoard clone() {
+        final SkatBoard clone = new SkatBoard();
+        clone.stacks.put(DECK_STACK, stacks.get(DECK_STACK));
+        clone.stacks.put(SKAT_STACK, stacks.get(SKAT_STACK));
+        clone.stacks.put(PILE_STACK, stacks.get(PILE_STACK));
+        for (SkatPlayer player: SkatPlayer.values()) {
+            clone.stacks.put(HAND_STACKS.get(player), stacks.get(HAND_STACKS.get(player)));
+            clone.stacks.put(PILE_STACKS.get(player), stacks.get(PILE_STACKS.get(player)));
+        }
+        return clone;
     }
 }

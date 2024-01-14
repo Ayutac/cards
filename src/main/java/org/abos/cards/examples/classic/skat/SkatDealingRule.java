@@ -13,7 +13,7 @@ public class SkatDealingRule implements Rule<SimpleCard> {
 
     private final SkatSubGame subGame;
 
-    public SkatDealingRule(SkatSubGame subGame) {
+    public SkatDealingRule(final SkatSubGame subGame) {
         this.subGame = Objects.requireNonNull(subGame);
     }
 

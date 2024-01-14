@@ -4,9 +4,7 @@ import org.abos.cards.core.*;
 
 import java.util.Objects;
 
-public class SkatSubGame implements SubGame<SimpleCard> {
-
-    protected final SkatBoard board;
+public class SkatSubGame extends SimpleSubGame<SimpleCard> {
 
     protected final SkatPlayer dealingPlayer;
 
@@ -14,14 +12,19 @@ public class SkatSubGame implements SubGame<SimpleCard> {
 
     protected SkatTrump trump;
 
-    public SkatSubGame(SkatPlayer dealingPlayer) {
-        this.board = new SkatBoard(new SkatDeck());
+    public SkatSubGame(final SkatPlayer dealingPlayer) {
+        super(new SkatBoard(new SkatDeck()));
         this.dealingPlayer = Objects.requireNonNull(dealingPlayer);
     }
 
     @Override
     public SkatBoard getBoard() {
-        return board;
+        return (SkatBoard)board;
+    }
+
+    @Override
+    public SkatBoard getHistoricBoard(int index) throws IndexOutOfBoundsException {
+        return (SkatBoard)super.getHistoricBoard(index);
     }
 
     public SkatPlayer getDealingPlayer() {
