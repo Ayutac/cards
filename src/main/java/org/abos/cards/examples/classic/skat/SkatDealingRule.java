@@ -1,8 +1,9 @@
 package org.abos.cards.examples.classic.skat;
 
+import org.abos.cards.core.Rule;
 import org.abos.cards.core.SimpleCard;
 import org.abos.cards.core.SubGame;
-import org.abos.cards.core.rules.*;
+import org.abos.cards.core.actions.*;
 
 import java.util.LinkedList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package org.abos.cards.core.rules;
+package org.abos.cards.core.actions;
 
 public enum MoveType {
     TOP,

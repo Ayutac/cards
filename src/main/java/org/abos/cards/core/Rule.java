@@ -1,7 +1,6 @@
-package org.abos.cards.core.rules;
+package org.abos.cards.core;
 
-import org.abos.cards.core.Card;
-import org.abos.cards.core.SubGame;
+import org.abos.cards.core.actions.Action;
 
 import java.util.List;
 import java.util.function.Predicate;

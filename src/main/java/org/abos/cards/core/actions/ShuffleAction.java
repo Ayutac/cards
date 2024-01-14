@@ -1,4 +1,4 @@
-package org.abos.cards.core.rules;
+package org.abos.cards.core.actions;
 
 import org.abos.cards.core.Card;
 import org.abos.cards.core.SubGame;
