@@ -3,6 +3,7 @@ package org.abos.cards.core.rules;
 import org.abos.cards.core.Card;
 import org.abos.cards.core.Stack;
 import org.abos.cards.core.SubGame;
+import org.abos.common.ErrorUtil;
 
 import java.util.Objects;
 import java.util.Random;
@@ -55,7 +56,7 @@ public class MoveAction<T extends Card> implements Action<T> {
                     to.add(from.remove(rng.nextInt(from.size())));
                 }
             }
-            default -> throw new AssertionError(String.format("Unknown %s enum entry!", MoveType.class.getName()));
+            default -> ErrorUtil.unknownEnumEntry(moveType);
         }
     }
 
