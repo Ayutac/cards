@@ -1,43 +1,43 @@
 package org.abos.cards.core.rules;
 
-import org.abos.cards.core.Board;
 import org.abos.cards.core.Card;
 import org.abos.cards.core.Stack;
+import org.abos.cards.core.SubGame;
 
 import java.util.Objects;
 import java.util.Random;
 
 public class MoveAction<T extends Card> implements Action<T> {
 
-    protected final Board<T> board;
+    protected final SubGame<T> subGame;
     protected final String stackFromName;
     protected final String stackToName;
     protected final MoveType moveType;
     protected final int count;
 
-    public MoveAction(Board<T> board, String stackFromName, String stackToName, MoveType moveType, int count) {
-        this.board = Objects.requireNonNull(board);
+    public MoveAction(SubGame<T> game, String stackFromName, String stackToName, MoveType moveType, int count) {
+        this.subGame = Objects.requireNonNull(game);
         this.stackFromName = Objects.requireNonNull(stackFromName);
         this.stackToName = Objects.requireNonNull(stackToName);
         this.moveType = Objects.requireNonNull(moveType);
         this.count = count;
-        if (!board.hasStack(stackFromName)) {
+        if (!game.getBoard().hasStack(stackFromName)) {
             throw new IllegalArgumentException(String.format("Given board doesn't contain %s!", stackFromName));
         }
-        if (!board.hasStack(stackToName)) {
+        if (!game.getBoard().hasStack(stackToName)) {
             throw new IllegalArgumentException(String.format("Given board doesn't contain %s!", stackToName));
         }
     }
 
     @Override
     public boolean isPossible() {
-        return board.getStackByName(stackFromName).size() >= count;
+        return subGame.getBoard().getStackByName(stackFromName).size() >= count;
     }
 
     @Override
     public void run() {
-        Stack<T> from = board.getStackByName(stackFromName);
-        Stack<T> to = board.getStackByName(stackToName);
+        Stack<T> from = subGame.getBoard().getStackByName(stackFromName);
+        Stack<T> to = subGame.getBoard().getStackByName(stackToName);
         switch (moveType) {
             case TOP -> {
                 for (int i = 0; i < count; i++) {
@@ -60,8 +60,8 @@ public class MoveAction<T extends Card> implements Action<T> {
     }
 
     @Override
-    public Board getBoard() {
-        return board;
+    public SubGame<T> getSubGame() {
+        return subGame;
     }
 
     public String getStackFromName() {

@@ -1,16 +1,16 @@
 package org.abos.cards.core.rules;
 
 import org.abos.cards.core.Card;
-import org.abos.cards.core.Game;
+import org.abos.cards.core.SubGame;
 
 import java.util.List;
 import java.util.function.Predicate;
 
 public interface Rule<T extends Card> extends Runnable {
 
-    Game<T> getGame();
+    SubGame<T> getSubGame();
 
-    Predicate<Game<T>> getCondition();
+    Predicate<SubGame<T>> getCondition();
 
     /**
      * Returns an immutable view of the actions to take.
@@ -20,7 +20,7 @@ public interface Rule<T extends Card> extends Runnable {
 
     @Override
     default void run() {
-        if (getCondition().test(getGame())) {
+        if (getCondition().test(getSubGame())) {
             for (Action<T> action : getActions()) {
                 if (action.isPossible()) {
                     action.run();

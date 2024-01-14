@@ -1,12 +1,12 @@
 package org.abos.cards.core.rules;
 
-import org.abos.cards.core.Board;
 import org.abos.cards.core.Card;
+import org.abos.cards.core.SubGame;
 
 public class ShuffleAction<T extends Card> extends StackAction<T> {
 
-    public ShuffleAction(Board<T> board, String stackName) {
-        super(board, stackName);
+    public ShuffleAction(SubGame<T> subGame, String stackName) {
+        super(subGame, stackName);
     }
 
     @Override
@@ -16,6 +16,6 @@ public class ShuffleAction<T extends Card> extends StackAction<T> {
 
     @Override
     public void run() {
-        board.getStackByName(stackName).shuffle();
+        subGame.getBoard().getStackByName(stackName).shuffle();
     }
 }

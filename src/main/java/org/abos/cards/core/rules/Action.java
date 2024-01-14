@@ -1,11 +1,11 @@
 package org.abos.cards.core.rules;
 
-import org.abos.cards.core.Board;
 import org.abos.cards.core.Card;
+import org.abos.cards.core.SubGame;
 
 public interface Action<T extends Card> extends Runnable {
 
-    Board<T> getBoard();
+    SubGame<T> getSubGame();
 
     boolean isPossible();
 

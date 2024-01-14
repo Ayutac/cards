@@ -1,5 +1,7 @@
 package org.abos.cards.core;
 
+import org.abos.common.Named;
+
 public interface Card extends Named {
 
     CardType getType();

@@ -1,7 +1,9 @@
 package org.abos.cards.core;
 
+import java.util.List;
+
 public interface Game<T extends Card> {
 
-    Board<T> getBoard();
+    List<SubGame<T>> getSubgames();
 
 }

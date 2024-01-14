@@ -1,6 +1,7 @@
 package org.abos.cards.examples.classic;
 
-import org.abos.cards.core.Named;
+import org.abos.common.Named;
+import org.abos.common.StringUtil;
 
 public enum FrenchSuit implements Named {
 
@@ -14,7 +15,7 @@ public enum FrenchSuit implements Named {
     private final String name;
 
     FrenchSuit() {
-        name = Named.fromUpperCase(name());
+        name = StringUtil.toCapitalized(name());
     }
 
     @Override

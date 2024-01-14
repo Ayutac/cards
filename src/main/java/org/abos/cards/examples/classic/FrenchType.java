@@ -1,7 +1,7 @@
 package org.abos.cards.examples.classic;
 
 import org.abos.cards.core.CardType;
-import org.abos.cards.core.Named;
+import org.abos.common.ErrorUtil;
 import org.abos.cards.core.SimpleCard;
 
 import java.util.Objects;
@@ -39,16 +39,12 @@ public final class FrenchType implements CardType {
 
     @Override
     public Object getProperty(String property) {
-        if (Named.NAME_PROPERTY.equals(property)) {
-            return getName();
-        }
-        if (FrenchSuit.SUIT_PROPERTY.equals(property)) {
-            return suit;
-        }
-        if (FrenchRank.RANK_PROPERTY.equals(property)) {
-            return rank;
-        }
-        return null; // TODO really?
+        return switch (property) {
+            case CardType.NAME_PROPERTY -> getName();
+            case FrenchSuit.SUIT_PROPERTY -> suit;
+            case FrenchRank.RANK_PROPERTY -> rank;
+            default -> ErrorUtil.unreachableCode();
+        };
     }
 
     @Override

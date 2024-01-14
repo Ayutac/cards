@@ -5,6 +5,7 @@ import org.abos.cards.core.SimpleCard;
 import org.abos.cards.core.SimpleStack;
 import org.abos.cards.core.Stack;
 
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -17,17 +18,16 @@ public class SkatBoard implements Board<SimpleCard> {
 
     public static final String PILE_STACK = "pile";
 
-    public static final String PLAYER_1_HAND_STACK = "player1hand";
+    public static final EnumMap<SkatPlayer, String> HAND_STACKS = new EnumMap<>(SkatPlayer.class);
 
-    public static final String PLAYER_2_HAND_STACK = "player2hand";
+    public static final EnumMap<SkatPlayer, String> PILE_STACKS = new EnumMap<>(SkatPlayer.class);
 
-    public static final String PLAYER_3_HAND_STACK = "player3hand";
-
-    public static final String PLAYER_1_PILE_STACK = "player1pile";
-
-    public static final String PLAYER_2_PILE_STACK = "player2pile";
-
-    public static final String PLAYER_3_PILE_STACK = "player3pile";
+    static {
+        for (SkatPlayer player : SkatPlayer.values()) {
+            HAND_STACKS.put(player, "hand." + player.name());
+            PILE_STACKS.put(player, "pile." + player.name());
+        }
+    }
 
     private final Map<String, Stack<SimpleCard>> stacks = new HashMap<>();
 
@@ -35,12 +35,10 @@ public class SkatBoard implements Board<SimpleCard> {
         stacks.put(DECK_STACK, Objects.requireNonNull(deck));
         stacks.put(SKAT_STACK, new SimpleStack<>(SKAT_STACK));
         stacks.put(PILE_STACK, new SimpleStack<>(PILE_STACK));
-        stacks.put(PLAYER_1_HAND_STACK, new SimpleStack<>(PLAYER_1_HAND_STACK));
-        stacks.put(PLAYER_2_HAND_STACK, new SimpleStack<>(PLAYER_2_HAND_STACK));
-        stacks.put(PLAYER_3_HAND_STACK, new SimpleStack<>(PLAYER_3_HAND_STACK));
-        stacks.put(PLAYER_1_PILE_STACK, new SimpleStack<>(PLAYER_1_PILE_STACK));
-        stacks.put(PLAYER_2_PILE_STACK, new SimpleStack<>(PLAYER_2_PILE_STACK));
-        stacks.put(PLAYER_3_PILE_STACK, new SimpleStack<>(PLAYER_3_PILE_STACK));
+        for (SkatPlayer player: SkatPlayer.values()) {
+            stacks.put(HAND_STACKS.get(player), new SimpleStack<>(HAND_STACKS.get(player)));
+            stacks.put(PILE_STACKS.get(player), new SimpleStack<>(PILE_STACKS.get(player)));
+        }
     }
 
     @Override

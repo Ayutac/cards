@@ -1,6 +1,7 @@
 package org.abos.cards.examples.classic;
 
-import org.abos.cards.core.Named;
+import org.abos.common.Named;
+import org.abos.common.StringUtil;
 
 public enum FrenchRank implements Named {
 
@@ -23,7 +24,7 @@ public enum FrenchRank implements Named {
     private final String name;
 
     FrenchRank() {
-        name = Named.fromUpperCase(name());
+        name = StringUtil.toCapitalized(name());
     }
 
     @Override
