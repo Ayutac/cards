@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface Game<T extends Card> {
 
-    List<SubGame<T>> getSubgames();
+    List<SubGame<T>> getSubGames();
 
 }

@@ -1,8 +1,6 @@
 package org.abos.cards.examples.classic;
 
 import org.abos.cards.core.CardType;
-import org.abos.common.ErrorUtil;
-import org.abos.cards.core.SimpleCard;
 
 import java.util.Objects;
 
@@ -43,12 +41,7 @@ public final class FrenchType implements CardType {
             case CardType.NAME_PROPERTY -> getName();
             case FrenchSuit.SUIT_PROPERTY -> suit;
             case FrenchRank.RANK_PROPERTY -> rank;
-            default -> ErrorUtil.unreachableCode();
+            default -> throw new IllegalArgumentException("Unknown Property!");
         };
-    }
-
-    @Override
-    public SimpleCard create() {
-        return new SimpleCard(this);
     }
 }

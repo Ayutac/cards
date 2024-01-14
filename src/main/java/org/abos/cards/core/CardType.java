@@ -7,6 +7,4 @@ public interface CardType extends Named {
     String NAME_PROPERTY = "Name";
 
     Object getProperty(String property);
-
-    Card create();
 }
