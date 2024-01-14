@@ -53,7 +53,7 @@ public class SkatBoard implements Board<SimpleCard> {
     @Override
     public Stack<SimpleCard> getStackByName(final String name) throws IllegalArgumentException {
         if (!hasStack(name)) {
-            throw new IllegalArgumentException("Unkown stack!");
+            throw new IllegalArgumentException("Unknown stack!");
         }
         return stacks.get(name);
     }
