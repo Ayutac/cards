@@ -12,4 +12,6 @@ public interface Phase<T extends Card> {
 
     SequencedSet<Rule<T>> getRules();
 
+    Rule<T> selectRule();
+
 }
