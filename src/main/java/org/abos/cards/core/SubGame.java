@@ -10,6 +10,8 @@ public interface SubGame<T extends Card> {
 
     void historizeBoard();
 
+    void resetToLastBoard();
+
     boolean isInitialized();
 
     void initialize();

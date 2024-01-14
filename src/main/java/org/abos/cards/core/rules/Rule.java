@@ -10,6 +10,8 @@ public interface Rule<T extends Card> extends Runnable {
 
     SubGame<T> getSubGame();
 
+    boolean resetIfActionFailed();
+
     Predicate<SubGame<T>> getCondition();
 
     /**
@@ -20,12 +22,19 @@ public interface Rule<T extends Card> extends Runnable {
 
     @Override
     default void run() {
+        boolean allActionsDone = true;
         if (getCondition().test(getSubGame())) {
             for (Action<T> action : getActions()) {
                 if (action.isPossible()) {
                     action.run();
                 }
+                else {
+                    allActionsDone = false;
+                }
             }
+        }
+        if (!allActionsDone && resetIfActionFailed()) {
+            getSubGame().resetToLastBoard();
         }
     }
 

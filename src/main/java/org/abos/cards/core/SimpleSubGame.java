@@ -6,7 +6,7 @@ import java.util.Objects;
 
 public abstract class SimpleSubGame<T extends Card> implements SubGame<T> {
 
-    protected final Board<T> board;
+    protected Board<T> board;
 
     protected final List<Board<T>> historicBoards = new LinkedList<>();
 
@@ -28,5 +28,10 @@ public abstract class SimpleSubGame<T extends Card> implements SubGame<T> {
     @Override
     public final void historizeBoard() {
         historicBoards.add(board.clone());
+    }
+
+    @Override
+    public void resetToLastBoard() {
+        board = historicBoards.get(historicBoards.size()-1).clone();
     }
 }
