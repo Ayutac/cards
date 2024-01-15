@@ -23,7 +23,7 @@ public abstract class SimplePhase<T extends Card> implements Phase<T> {
 
     protected SimplePhase(final SequencedSet<Option<T>> options, final boolean initializer, final boolean ender) {
         this.options.addAll(options);
-        if (!(initializer ^ ender)) {
+        if (initializer && ender) {
             throw new IllegalArgumentException("A phase can only be initializer OR ender!");
         }
         this.initializer = initializer;
