@@ -12,13 +12,13 @@ public interface Phase<T extends Card> {
 
     boolean isSubGameEnder();
 
-    SequencedSet<Rule<T>> getRules();
+    SequencedSet<Option<T>> getRules();
 
     default boolean hasAvailableRules() {
-        return getRules().stream().anyMatch(rule -> rule.getCondition().test(getSubGame()));
+        return getRules().stream().anyMatch(option -> option.getCondition().test(getSubGame()));
     }
 
-    Rule<T> selectRule();
+    Option<T> selectRule();
 
     void done();
 

@@ -1,6 +1,6 @@
 package org.abos.cards.examples.classic.skat;
 
-import org.abos.cards.core.Rule;
+import org.abos.cards.core.Option;
 import org.abos.cards.core.simple.SimpleCard;
 import org.abos.cards.core.SubGame;
 import org.abos.cards.core.actions.Action;
@@ -10,14 +10,13 @@ import org.abos.cards.core.actions.ShuffleAction;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
 import java.util.function.Predicate;
 
-public class SkatDealingRule implements Rule<SimpleCard> {
+public class SkatDealingOption implements Option<SimpleCard> {
 
     private SkatSubGame subGame;
 
-    public SkatDealingRule() {
+    public SkatDealingOption() {
         /* Nothing for now */
     }
 

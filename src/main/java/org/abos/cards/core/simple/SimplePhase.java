@@ -2,7 +2,7 @@ package org.abos.cards.core.simple;
 
 import org.abos.cards.core.Card;
 import org.abos.cards.core.Phase;
-import org.abos.cards.core.Rule;
+import org.abos.cards.core.Option;
 import org.abos.cards.core.SubGame;
 
 import java.util.Collections;
@@ -15,14 +15,14 @@ public abstract class SimplePhase<T extends Card> implements Phase<T> {
 
     protected SubGame subGame;
 
-    protected final SequencedSet<Rule<T>> rules = new LinkedHashSet<>();
+    protected final SequencedSet<Option<T>> options = new LinkedHashSet<>();
 
     protected final boolean initializer;
 
     protected final boolean ender;
 
-    protected SimplePhase(final SequencedSet<Rule<T>> rules, final boolean initializer, final boolean ender) {
-        this.rules.addAll(rules);
+    protected SimplePhase(final SequencedSet<Option<T>> options, final boolean initializer, final boolean ender) {
+        this.options.addAll(options);
         if (!(initializer ^ ender)) {
             throw new IllegalArgumentException("A phase can only be initializer OR ender!");
         }
@@ -30,8 +30,8 @@ public abstract class SimplePhase<T extends Card> implements Phase<T> {
         this.ender = ender;
     }
 
-    protected SimplePhase(final Rule<T> rule, final boolean initializer, final boolean ender) {
-        this(new LinkedHashSet<>(Set.of(rule)), initializer, ender);
+    protected SimplePhase(final Option<T> option, final boolean initializer, final boolean ender) {
+        this(new LinkedHashSet<>(Set.of(option)), initializer, ender);
     }
 
     @Override
@@ -42,7 +42,7 @@ public abstract class SimplePhase<T extends Card> implements Phase<T> {
     @Override
     public void setSubGame(SubGame<T> subGame) {
         this.subGame = Objects.requireNonNull(subGame);
-        rules.forEach(rule -> rule.setSubGame(subGame));
+        options.forEach(option -> option.setSubGame(subGame));
     }
 
     @Override
@@ -56,7 +56,7 @@ public abstract class SimplePhase<T extends Card> implements Phase<T> {
     }
 
     @Override
-    public SequencedSet<Rule<T>> getRules() {
-        return Collections.unmodifiableSequencedSet(rules);
+    public SequencedSet<Option<T>> getRules() {
+        return Collections.unmodifiableSequencedSet(options);
     }
 }

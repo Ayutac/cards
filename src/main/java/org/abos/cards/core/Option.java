@@ -5,7 +5,7 @@ import org.abos.cards.core.actions.Action;
 import java.util.List;
 import java.util.function.Predicate;
 
-public interface Rule<T extends Card> extends Runnable {
+public interface Option<T extends Card> extends Runnable {
 
     SubGame<T> getSubGame();
 
