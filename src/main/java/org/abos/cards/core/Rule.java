@@ -9,6 +9,8 @@ public interface Rule<T extends Card> extends Runnable {
 
     SubGame<T> getSubGame();
 
+    void setSubGame(SubGame<T> subGame);
+
     boolean resetIfActionFailed();
 
     Predicate<SubGame<T>> getCondition();

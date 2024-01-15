@@ -1,7 +1,7 @@
 package org.abos.cards.examples.classic.skat;
 
 import org.abos.cards.core.Rule;
-import org.abos.cards.core.SimpleCard;
+import org.abos.cards.core.simple.SimpleCard;
 import org.abos.cards.core.SubGame;
 import org.abos.cards.core.actions.Action;
 import org.abos.cards.core.actions.MoveAction;
@@ -15,15 +15,25 @@ import java.util.function.Predicate;
 
 public class SkatDealingRule implements Rule<SimpleCard> {
 
-    private final SkatSubGame subGame;
+    private SkatSubGame subGame;
 
-    public SkatDealingRule(final SkatSubGame subGame) {
-        this.subGame = Objects.requireNonNull(subGame);
+    public SkatDealingRule() {
+        /* Nothing for now */
     }
 
     @Override
     public SubGame<SimpleCard> getSubGame() {
         return subGame;
+    }
+
+    @Override
+    public void setSubGame(SubGame<SimpleCard> subGame) {
+        if (subGame instanceof SkatSubGame skat) {
+            this.subGame = skat;
+        }
+        else {
+            throw new IllegalArgumentException("subGame must be of type SkatSubGame!");
+        }
     }
 
     @Override
@@ -33,7 +43,7 @@ public class SkatDealingRule implements Rule<SimpleCard> {
 
     @Override
     public Predicate<SubGame<SimpleCard>> getCondition() {
-        return SubGame::isInitialized;
+        return subGame -> true;
     }
 
     @Override

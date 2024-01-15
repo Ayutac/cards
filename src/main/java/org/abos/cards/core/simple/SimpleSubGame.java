@@ -1,4 +1,9 @@
-package org.abos.cards.core;
+package org.abos.cards.core.simple;
+
+import org.abos.cards.core.Board;
+import org.abos.cards.core.Card;
+import org.abos.cards.core.Phase;
+import org.abos.cards.core.SubGame;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -38,5 +43,35 @@ public abstract class SimpleSubGame<T extends Card> implements SubGame<T> {
     @Override
     public void resetToLastBoard() {
         board = historicBoards.get(historicBoards.size()-1).clone();
+    }
+
+    @Override
+    public int getPhasesSize() {
+        return phases.size();
+    }
+
+    @Override
+    public Phase<T> getPhase(int index) throws IndexOutOfBoundsException {
+        return phases.get(index);
+    }
+
+    @Override
+    public void run() {
+        boolean initialized = false;
+        boolean ended = false;
+        do {
+            for (Phase phase : phases) {
+                if (phase.isSubGameInitialization() && initialized || !phase.hasAvailableRules()) {
+                    continue;
+                }
+                while (!phase.isDone()) {
+                    phase.selectRule().run();
+                }
+                initialized = true;
+                if (phase.isSubGameEnder()) {
+                    ended = true;
+                }
+            }
+        } while(!ended);
     }
 }

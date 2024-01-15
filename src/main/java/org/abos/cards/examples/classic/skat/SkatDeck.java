@@ -1,7 +1,7 @@
 package org.abos.cards.examples.classic.skat;
 
-import org.abos.cards.core.SimpleCard;
-import org.abos.cards.core.SimpleStack;
+import org.abos.cards.core.simple.SimpleCard;
+import org.abos.cards.core.simple.SimpleStack;
 import org.abos.cards.examples.classic.FrenchRank;
 import org.abos.cards.examples.classic.FrenchSuit;
 import org.abos.cards.examples.classic.FrenchType;

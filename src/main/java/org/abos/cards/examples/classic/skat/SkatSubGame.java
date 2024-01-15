@@ -1,20 +1,22 @@
 package org.abos.cards.examples.classic.skat;
 
-import org.abos.cards.core.*;
+import org.abos.cards.core.simple.OneRulePhase;
+import org.abos.cards.core.simple.SimpleCard;
+import org.abos.cards.core.simple.SimpleSubGame;
 
+import java.util.List;
 import java.util.Objects;
 
 public class SkatSubGame extends SimpleSubGame<SimpleCard> {
 
     protected final SkatPlayer dealingPlayer;
 
-    protected boolean initialized = false;
-
     protected SkatTrump trump;
 
     public SkatSubGame(final SkatPlayer dealingPlayer) {
-        super(new SkatBoard(new SkatDeck()));
+        super(new SkatBoard(new SkatDeck()), List.of(new OneRulePhase<>(new SkatDealingRule(), true, false)));
         this.dealingPlayer = Objects.requireNonNull(dealingPlayer);
+        phases.forEach(phase -> phase.setSubGame(this));
     }
 
     @Override
@@ -31,25 +33,11 @@ public class SkatSubGame extends SimpleSubGame<SimpleCard> {
         return dealingPlayer;
     }
 
-    @Override
-    public boolean isInitialized() {
-        return initialized;
-    }
-
     public SkatTrump getTrump() {
         return trump;
     }
 
     public void setTrump(SkatTrump trump) {
         this.trump = trump;
-    }
-
-    @Override
-    public void initialize() {
-        if (initialized) {
-            throw new IllegalStateException("Already initialized!");
-        }
-        new SkatDealingRule(this).run();
-        initialized = true;
     }
 }

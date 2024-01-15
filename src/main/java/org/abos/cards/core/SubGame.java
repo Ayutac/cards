@@ -14,10 +14,6 @@ public interface SubGame<T extends Card> extends Runnable {
 
     void resetToLastBoard();
 
-    boolean isInitialized();
-
-    void initialize();
-
     int getPhasesSize();
 
     Phase<T> getPhase(final int index) throws IndexOutOfBoundsException;

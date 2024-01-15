@@ -1,4 +1,7 @@
-package org.abos.cards.core;
+package org.abos.cards.core.simple;
+
+import org.abos.cards.core.Card;
+import org.abos.cards.core.Stack;
 
 import java.util.LinkedList;
 import java.util.Objects;
