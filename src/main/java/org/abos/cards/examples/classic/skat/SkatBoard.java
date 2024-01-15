@@ -70,4 +70,9 @@ public class SkatBoard implements Board<SimpleCard> {
         }
         return clone;
     }
+
+    @Override
+    public String toString() {
+        return "Board: " + stacks;
+    }
 }

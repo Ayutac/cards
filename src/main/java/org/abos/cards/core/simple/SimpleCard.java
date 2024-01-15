@@ -17,4 +17,9 @@ public class SimpleCard implements Card {
     public CardType getType() {
         return type;
     }
+
+    @Override
+    public String toString() {
+        return getName();
+    }
 }

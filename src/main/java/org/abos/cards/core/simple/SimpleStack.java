@@ -18,4 +18,9 @@ public class SimpleStack<T extends Card> extends LinkedList<T> implements Stack<
     public String getName() {
         return name;
     }
+
+    @Override
+    public String toString() {
+        return getName();
+    }
 }

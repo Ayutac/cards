@@ -13,7 +13,7 @@ import java.util.Set;
 
 public abstract class SimplePhase<T extends Card> implements Phase<T> {
 
-    protected SubGame subGame;
+    protected SubGame<T> subGame;
 
     protected final SequencedSet<Option<T>> options = new LinkedHashSet<>();
 
@@ -58,5 +58,10 @@ public abstract class SimplePhase<T extends Card> implements Phase<T> {
     @Override
     public SequencedSet<Option<T>> getRules() {
         return Collections.unmodifiableSequencedSet(options);
+    }
+
+    @Override
+    public String toString() {
+        return "Phase: " + options;
     }
 }
