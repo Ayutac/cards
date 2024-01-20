@@ -23,7 +23,7 @@ public abstract class ChoiceAction<T extends Card> extends StackAction<T> {
         return subGame.getBoard().getStackByName(stackName).stream().anyMatch(card -> selector.test(subGame, card));
     }
 
-    protected abstract Card select(List<T> choices);
+    protected abstract T select(List<T> choices);
 
     @Override
     public void run() {
