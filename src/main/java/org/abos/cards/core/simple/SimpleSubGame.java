@@ -41,7 +41,7 @@ public abstract class SimpleSubGame<T extends Card> implements SubGame<T> {
 
     @Override
     public void resetToLastBoard() {
-        board = historicBoards.get(historicBoards.size()-1).clone();
+        board = historicBoards.getLast().clone();
     }
 
     @Override
@@ -59,7 +59,7 @@ public abstract class SimpleSubGame<T extends Card> implements SubGame<T> {
         boolean initialized = false;
         boolean ended = false;
         do {
-            for (Phase phase : phases) {
+            for (Phase<T> phase : phases) {
                 if (phase.isSubGameInitialization() && initialized || !phase.hasAvailableOptions()) {
                     continue;
                 }
