@@ -52,4 +52,16 @@ public final class FrenchType implements CardType {
     public FrenchRank getRank() {
         return rank;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof FrenchType that)) return false;
+        return suit == that.suit && rank == that.rank;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(suit, rank);
+    }
 }
