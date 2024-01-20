@@ -6,7 +6,6 @@ import org.abos.cards.core.Phase;
 import org.abos.cards.core.SubGame;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
@@ -61,7 +60,7 @@ public abstract class SimpleSubGame<T extends Card> implements SubGame<T> {
         boolean ended = false;
         do {
             for (Phase phase : phases) {
-                if (phase.isSubGameInitialization() && initialized || !phase.hasAvailableRules()) {
+                if (phase.isSubGameInitialization() && initialized || !phase.hasAvailableOptions()) {
                     continue;
                 }
                 while (!phase.isDone()) {

@@ -56,7 +56,7 @@ public abstract class SimplePhase<T extends Card> implements Phase<T> {
     }
 
     @Override
-    public SequencedSet<Option<T>> getRules() {
+    public SequencedSet<Option<T>> getOptions() {
         return Collections.unmodifiableSequencedSet(options);
     }
 
