@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
-public class SkatBoard implements Board<SimpleCard> {
+public final class SkatBoard implements Board<SimpleCard> {
 
     public static final String DECK_STACK = "deck";
 
