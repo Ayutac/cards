@@ -44,4 +44,12 @@ public final class FrenchType implements CardType {
             default -> throw new IllegalArgumentException("Unknown Property!");
         };
     }
+
+    public FrenchSuit getSuit() {
+        return suit;
+    }
+
+    public FrenchRank getRank() {
+        return rank;
+    }
 }

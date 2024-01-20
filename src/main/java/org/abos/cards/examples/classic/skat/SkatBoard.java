@@ -9,6 +9,7 @@ import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 public class SkatBoard implements Board<SimpleCard> {
 
@@ -56,6 +57,18 @@ public class SkatBoard implements Board<SimpleCard> {
             throw new IllegalArgumentException("Unknown stack!");
         }
         return stacks.get(name);
+    }
+
+    /**
+     * Returns the first played card on the pile if there is any.
+     * @return the first played card on the pile, not {@code null}
+     */
+    public Optional<SimpleCard> firstPlayed() {
+        final Stack<SimpleCard> pile = stacks.get(PILE_STACK);
+        if (pile.isEmpty()) {
+            return Optional.empty();
+        }
+        return Optional.of(pile.getFirst());
     }
 
     @Override
