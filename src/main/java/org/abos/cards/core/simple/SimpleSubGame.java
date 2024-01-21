@@ -64,7 +64,7 @@ public abstract class SimpleSubGame<T extends Card> implements SubGame<T> {
                     continue;
                 }
                 while (!phase.isDone()) {
-                    phase.selectRule().run();
+                    phase.selectOption().run();
                 }
                 initialized = true;
                 if (phase.isSubGameEnder()) {

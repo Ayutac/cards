@@ -12,7 +12,7 @@ public class OneOptionPhase<T extends Card> extends SimplePhase<T> {
     }
 
     @Override
-    public Option<T> selectRule() {
+    public Option<T> selectOption() {
         done();
         return options.getFirst();
     }

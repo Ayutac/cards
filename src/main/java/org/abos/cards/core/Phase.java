@@ -18,7 +18,7 @@ public interface Phase<T extends Card> {
         return getOptions().stream().anyMatch(option -> option.getCondition().test(getSubGame()));
     }
 
-    Option<T> selectRule();
+    Option<T> selectOption();
 
     void done();
 
