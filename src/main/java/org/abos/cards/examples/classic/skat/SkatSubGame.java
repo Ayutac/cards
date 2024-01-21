@@ -1,6 +1,7 @@
 package org.abos.cards.examples.classic.skat;
 
 import org.abos.cards.core.Stack;
+import org.abos.cards.core.simple.EnderPhase;
 import org.abos.cards.core.simple.OneOptionPhase;
 import org.abos.cards.core.simple.SimpleCard;
 import org.abos.cards.core.simple.SimpleSubGame;
@@ -21,7 +22,9 @@ public class SkatSubGame extends SimpleSubGame<SimpleCard> {
     protected SkatTrump trump;
 
     public SkatSubGame(final SkatPlayer dealingPlayer) {
-        super(new SkatBoard(new SkatDeck()), List.of(new OneOptionPhase<>(new SkatDealingOption(), true, false)));
+        super(new SkatBoard(new SkatDeck()), List.of(
+                new OneOptionPhase<>(new SkatDealingOption(), true, false),
+                new EnderPhase<>(SkatEnderCondition.INSTANCE)));
         this.dealingPlayer = Objects.requireNonNull(dealingPlayer);
         startingPlayer = dealingPlayer.dealingOrder()[1];
         phases.forEach(phase -> phase.setSubGame(this));
