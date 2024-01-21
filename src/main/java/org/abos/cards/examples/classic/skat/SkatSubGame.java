@@ -16,14 +16,14 @@ public class SkatSubGame extends SimpleSubGame<SimpleCard> {
 
     protected final SkatPlayer dealingPlayer;
 
-    protected SkatPlayer currentPlayer;
+    protected SkatPlayer startingPlayer;
 
     protected SkatTrump trump;
 
     public SkatSubGame(final SkatPlayer dealingPlayer) {
         super(new SkatBoard(new SkatDeck()), List.of(new OneOptionPhase<>(new SkatDealingOption(), true, false)));
         this.dealingPlayer = Objects.requireNonNull(dealingPlayer);
-        currentPlayer = dealingPlayer.dealingOrder()[1];
+        startingPlayer = dealingPlayer.dealingOrder()[1];
         phases.forEach(phase -> phase.setSubGame(this));
     }
 
@@ -86,7 +86,7 @@ public class SkatSubGame extends SimpleSubGame<SimpleCard> {
                 winnerIndex = 2;
             }
         }
-        return currentPlayer.dealingOrder()[winnerIndex];
+        return startingPlayer.dealingOrder()[winnerIndex];
     }
 
     @Override
@@ -103,8 +103,8 @@ public class SkatSubGame extends SimpleSubGame<SimpleCard> {
         return dealingPlayer;
     }
 
-    public SkatPlayer getCurrentPlayer() {
-        return currentPlayer;
+    public SkatPlayer getStartingPlayer() {
+        return startingPlayer;
     }
 
     public SkatTrump getTrump() {
