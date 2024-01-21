@@ -1,5 +1,6 @@
 package org.abos.cards.examples.classic.skat;
 
+import org.abos.cards.core.Stack;
 import org.abos.cards.core.simple.OneOptionPhase;
 import org.abos.cards.core.simple.SimpleCard;
 import org.abos.cards.core.simple.SimpleSubGame;
@@ -15,12 +16,20 @@ public class SkatSubGame extends SimpleSubGame<SimpleCard> {
 
     protected final SkatPlayer dealingPlayer;
 
+    protected SkatPlayer currentPlayer;
+
     protected SkatTrump trump;
 
     public SkatSubGame(final SkatPlayer dealingPlayer) {
         super(new SkatBoard(new SkatDeck()), List.of(new OneOptionPhase<>(new SkatDealingOption(), true, false)));
         this.dealingPlayer = Objects.requireNonNull(dealingPlayer);
+        currentPlayer = dealingPlayer.dealingOrder()[1];
         phases.forEach(phase -> phase.setSubGame(this));
+    }
+
+    private static boolean matchTrumpSuit(final FrenchType type, final FrenchType pileType, final FrenchSuit suit) {
+        return (type.getSuit() == pileType.getSuit() && pileType.getRank() != FrenchRank.JACK && pileType.getSuit() != suit) ||
+                ((pileType.getRank() == FrenchRank.JACK || pileType.getSuit() == suit) && (type.getRank() == FrenchRank.JACK || type.getSuit() == suit));
     }
 
     public Predicate<FrenchType> getPileMatcher(final FrenchType pileType) {
@@ -31,15 +40,53 @@ public class SkatSubGame extends SimpleSubGame<SimpleCard> {
             case NULL -> type -> type.getSuit() == pileType.getSuit();
             case JACK -> type -> (type.getSuit() == pileType.getSuit() && pileType.getRank() != FrenchRank.JACK) ||
                         (pileType.getRank() == FrenchRank.JACK && type.getRank() == FrenchRank.JACK);
-            case CLUBS -> type -> (type.getSuit() == pileType.getSuit() && pileType.getRank() != FrenchRank.JACK && pileType.getSuit() != FrenchSuit.CLUBS) ||
-                    ((pileType.getRank() == FrenchRank.JACK || pileType.getSuit() == FrenchSuit.CLUBS) && (type.getRank() == FrenchRank.JACK || type.getSuit() == FrenchSuit.CLUBS));
-            case DIAMONDS -> type -> (type.getSuit() == pileType.getSuit() && pileType.getRank() != FrenchRank.JACK && pileType.getSuit() != FrenchSuit.DIAMONDS) ||
-                    ((pileType.getRank() == FrenchRank.JACK || pileType.getSuit() == FrenchSuit.DIAMONDS) && (type.getRank() == FrenchRank.JACK || type.getSuit() == FrenchSuit.DIAMONDS));
-            case HEARTS -> type -> (type.getSuit() == pileType.getSuit() && pileType.getRank() != FrenchRank.JACK && pileType.getSuit() != FrenchSuit.HEARTS) ||
-                    ((pileType.getRank() == FrenchRank.JACK || pileType.getSuit() == FrenchSuit.HEARTS) && (type.getRank() == FrenchRank.JACK || type.getSuit() == FrenchSuit.HEARTS));
-            case SPADES -> type -> (type.getSuit() == pileType.getSuit() && pileType.getRank() != FrenchRank.JACK && pileType.getSuit() != FrenchSuit.SPADES) ||
-                    ((pileType.getRank() == FrenchRank.JACK || pileType.getSuit() == FrenchSuit.SPADES) && (type.getRank() == FrenchRank.JACK || type.getSuit() == FrenchSuit.SPADES));
+            case CLUBS -> type -> matchTrumpSuit(type, pileType, FrenchSuit.CLUBS);
+            case DIAMONDS -> type -> matchTrumpSuit(type, pileType, FrenchSuit.DIAMONDS);
+            case HEARTS -> type -> matchTrumpSuit(type, pileType, FrenchSuit.HEARTS);
+            case SPADES -> type -> matchTrumpSuit(type, pileType, FrenchSuit.SPADES);
         };
+    }
+
+    private boolean isTrump(FrenchType type) {
+        if (getTrump() == null) {
+            throw new IllegalStateException("No trump selected!");
+        }
+        return switch (getTrump()) {
+            case NULL -> false;
+            case JACK -> type.getRank() == FrenchRank.JACK;
+            case CLUBS -> type.getRank() == FrenchRank.JACK || type.getSuit() == FrenchSuit.CLUBS;
+            case DIAMONDS -> type.getRank() == FrenchRank.JACK || type.getSuit() == FrenchSuit.DIAMONDS;
+            case HEARTS -> type.getRank() == FrenchRank.JACK || type.getSuit() == FrenchSuit.HEARTS;
+            case SPADES -> type.getRank() == FrenchRank.JACK || type.getSuit() == FrenchSuit.SPADES;
+        };
+    }
+
+    public SkatPlayer getPileWinner() {
+        final Stack<SimpleCard> pile = getBoard().getStackByName(SkatBoard.PILE_STACK);
+        if (pile.size() != 3) {
+            throw new IllegalStateException("Pile is not full!");
+        }
+        if (pile.stream().anyMatch(card -> !(card.getType() instanceof FrenchType))) {
+            throw new IllegalStateException("Wrong card in pile detected!");
+        }
+        final FrenchType type1 = (FrenchType)pile.getFirst().getType();
+        final FrenchType type2 = (FrenchType)pile.get(1).getType();
+        final FrenchType type3 = (FrenchType)pile.getLast().getType();
+        final Predicate<FrenchType> pileMatcher = getPileMatcher(type1);
+        FrenchType currentBest = type1;
+        int winnerIndex = 0;
+        if (pileMatcher.test(type2) || isTrump(type2)) {
+            if (SkatComparator.byTrump(getTrump()).compare(currentBest, type2) < 0) {
+                currentBest = type2;
+                winnerIndex = 1;
+            }
+        }
+        if (pileMatcher.test(type3) || isTrump(type3)) {
+            if (SkatComparator.byTrump(getTrump()).compare(currentBest, type3) < 0) {
+                winnerIndex = 2;
+            }
+        }
+        return currentPlayer.dealingOrder()[winnerIndex];
     }
 
     @Override
@@ -54,6 +101,10 @@ public class SkatSubGame extends SimpleSubGame<SimpleCard> {
 
     public SkatPlayer getDealingPlayer() {
         return dealingPlayer;
+    }
+
+    public SkatPlayer getCurrentPlayer() {
+        return currentPlayer;
     }
 
     public SkatTrump getTrump() {
