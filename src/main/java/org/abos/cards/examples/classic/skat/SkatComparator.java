@@ -19,10 +19,10 @@ public final class SkatComparator implements Comparator<FrenchType> {
         if (t1.getRank() == t2.getRank()) {
             return 0;
         }
-        if (t1.getRank() == FrenchRank.AS) {
+        if (t1.getRank() == FrenchRank.ACE) {
             return 1;
         }
-        if (t2.getRank() == FrenchRank.AS) {
+        if (t2.getRank() == FrenchRank.ACE) {
             return -1;
         }
         return t1.getRank().ordinal() - t2.getRank().ordinal();

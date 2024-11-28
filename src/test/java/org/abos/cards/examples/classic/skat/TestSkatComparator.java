@@ -1,6 +1,5 @@
 package org.abos.cards.examples.classic.skat;
 
-import org.abos.cards.core.simple.SimpleCard;
 import org.abos.cards.examples.classic.FrenchRank;
 import org.abos.cards.examples.classic.FrenchSuit;
 import org.abos.cards.examples.classic.FrenchType;
@@ -19,7 +18,7 @@ public final class TestSkatComparator {
     public void testConstantComparators() {
         final FrenchType cj = FrenchType.of(FrenchSuit.CLUBS, FrenchRank.JACK);
         final FrenchType dj = FrenchType.of(FrenchSuit.DIAMONDS, FrenchRank.JACK);
-        final FrenchType h1 = FrenchType.of(FrenchSuit.HEARTS, FrenchRank.AS);
+        final FrenchType h1 = FrenchType.of(FrenchSuit.HEARTS, FrenchRank.ACE);
         final FrenchType s10 = FrenchType.of(FrenchSuit.SPADES, FrenchRank.TEN);
         Assertions.assertTrue(SkatComparator.BY_RANK.compare(cj,dj) == 0);
         Assertions.assertTrue(SkatComparator.BY_RANK.compare(cj,h1) < 0);

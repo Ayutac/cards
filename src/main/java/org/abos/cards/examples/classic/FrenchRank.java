@@ -5,7 +5,7 @@ import org.abos.common.StringUtil;
 
 public enum FrenchRank implements Named {
 
-    AS,
+    ACE,
     TWO,
     THREE,
     FOUR,

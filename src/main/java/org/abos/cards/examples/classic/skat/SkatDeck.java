@@ -10,7 +10,7 @@ public final class SkatDeck extends SimpleStack<SimpleCard> {
 
     private static final FrenchRank[] validRanks = new FrenchRank[]
             {FrenchRank.SEVEN, FrenchRank.EIGHT, FrenchRank.NINE, FrenchRank.TEN,
-             FrenchRank.JACK, FrenchRank.QUEEN, FrenchRank.KING, FrenchRank.AS};
+             FrenchRank.JACK, FrenchRank.QUEEN, FrenchRank.KING, FrenchRank.ACE};
 
     public SkatDeck() {
         super(SkatBoard.DECK_STACK);

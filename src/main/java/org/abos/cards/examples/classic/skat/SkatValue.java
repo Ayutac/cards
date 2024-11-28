@@ -18,7 +18,7 @@ public final class SkatValue implements ToIntFunction<Card> {
     public int applyAsInt(Card value) {
         if (value.getType() instanceof FrenchType type) {
             return switch (type.getRank()) {
-                case AS -> 11;
+                case ACE -> 11;
                 case TEN -> 10;
                 case KING -> 4;
                 case QUEEN -> 3;
